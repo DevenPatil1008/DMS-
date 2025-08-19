@@ -1,1 +1,1 @@
-# DMS-
+Database Management System(DBMS)
