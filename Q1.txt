@@ -1,0 +1,18 @@
+CREATE TABLE Student(
+	Roll_no INT PRIMARY KEY,
+    Student_name VARCHAR(60) NOT NULL,
+    Sub1 INT DEFAULT 40,
+    Sub2 INT NULL,
+    Total INT NULL,
+    Percentage DECIMAL(10,2) NOT NULL
+);
+
+SELECT * FROM Student;
+
+INSERT INTO Student (Roll_no,Student_name,Sub1,Sub2,Total,Percentage) VALUES(01,'Raj',90,85,175,87.50);
+INSERT INTO Student (Roll_no,Student_name,Sub1,Sub2,Total,Percentage) VALUES(02,'Nikhil',62,70,132,66.00);
+INSERT INTO Student (Roll_no,Student_name,Sub2,Total,Percentage) VALUES(03,'Chetan',85,125,62.5);
+INSERT INTO Student (Roll_no,Student_name,Sub2,Total,Percentage) VALUES(04,'Darshan',35,75,37.5);
+INSERT INTO Student (Roll_no,Student_name,Sub2,Total,Percentage) VALUES(05,'Vedant',95,135,67.5);
+INSERT INTO Student (Roll_no,Student_name,Sub2,Total,Percentage) VALUES(06,'Deven',81,121,60.5);
+INSERT INTO Student (Roll_no,Student_name,Sub2,Total,Percentage) VALUES(07,'Amey',65,105,52.5);
