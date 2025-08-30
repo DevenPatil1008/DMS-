@@ -1,0 +1,79 @@
+CREATE TABLE Menu
+(
+	Id INT PRIMARY KEY,
+    Title VARCHAR(20) NOT NULL,
+    Description VARCHAR(100),
+    Cost DECIMAL(10,2) NOT NULL,
+    Qty INT DEFAULT 1,
+    Category INT,
+    Menu_Type VARCHAR(50) NOT NULL
+);
+
+SELECT * FROM Menu;
+
+CREATE TABLE Menu_Type
+(
+	Id INT PRIMARY KEY,
+	M_Type VARCHAR(50) NOT NULL,
+	FOREIGN KEY(Id) REFERENCES Menu(Id)
+);
+
+SELECT * FROM Menu_Type;
+
+CREATE TABLE User
+(
+	User_Id INT PRIMARY KEY,
+    Account_Date DATE,
+    Username VARCHAR(50) NOT NULL,
+    Email_Id Varchar(20) NOT NULL,
+    Contact_No INT NOT NULL,
+    Password Varchar(20) NOT NULL
+);
+
+SELECT * FROM User;
+
+CREATE TABLE Restaurent_type
+(
+	Id INT PRIMARY KEY,
+    R_Type VARCHAR(50) NOT NULL
+);
+
+SELECT * FROM Restaurent_type;
+
+CREATE TABLE Restaurent
+(
+	Restaurent_Id INT PRIMARY KEY,
+    Restaurent_Type VARCHAR(50) NOT NULL,
+    Address VARCHAR(100),
+    Reg_Code INT NOT NULL,
+    Tables INT NOT NULL,
+    FOREIGN KEY(Restaurent_Id) REFERENCES Restaurent_type(Id)
+);
+
+CREATE TABLE Restaurent_Menus
+(
+	Res_Id INT PRIMARY KEY,
+    Menu_id INT NOT NULL,
+    FOREIGN KEY(Res_Id) REFERENCES Restaurent_type(Id)
+);
+
+CREATE TABLE Menu_Category
+(
+	Menu_Id INT PRIMARY KEY,
+    M_Category INT,
+    FOREIGN KEY(Menu_Id) REFERENCES Menu(Id)
+);
+
+CREATE TABLE Ingradients
+(
+	Id INT PRIMARY KEY,
+    Title VARCHAR(50) NOT NULL,
+    Taste VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Menu_Ingradient
+(
+	 M_Id INT PRIMARY KEY,
+     Menu_Ingradient VARCHAR(50) NOT NULL,
+     FOREIGN KEY(M_Id) REFERENCES Menu(Id)
+);
