@@ -1,0 +1,5 @@
+CREATE VIEW v_attendance_student AS
+SELECT attstudid, date, time,
+       CONCAT(fname,' ',mname,' ',lname) AS student_name
+FROM AttendanceStudent
+JOIN Student ON AttendanceStudent.fkstudid = Student.studid;
