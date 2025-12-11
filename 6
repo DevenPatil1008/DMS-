@@ -1,0 +1,8 @@
+CREATE VIEW v_student AS
+SELECT studid, admn_date, fname, mname, lname,
+       CONCAT(fname,' ',mname,' ',lname) AS fullname,
+       dob, age, gender, address, contactno,
+       coursename, batchname, photo, sign, username, password
+FROM Student
+JOIN Course ON Student.fkcourse = Course.courseid
+JOIN Batch  ON Student.fkbatchid = Batch.batchid;
