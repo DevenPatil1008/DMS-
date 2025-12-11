@@ -1,8 +1,0 @@
-CREATE VIEW v_staff_fingerprints AS
-SELECT st.staffid,
-       CONCAT(fname,' ',mname,' ',lname) AS staff_name,
-       COUNT(tmstaffid) AS total_fingers
-FROM Staff st
-LEFT JOIN ThumbMasterStaff t
-ON st.staffid = t.fkstaffid
-GROUP BY st.staffid;
