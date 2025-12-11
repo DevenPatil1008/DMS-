@@ -1,5 +1,0 @@
-CREATE VIEW v_attendance_staff AS
-SELECT attstaffid, date, time,
-       CONCAT(fname,' ',mname,' ',lname) AS staff_name
-FROM AttendanceStaff
-JOIN Staff ON AttendanceStaff.fkstaffid = Staff.staffid;
