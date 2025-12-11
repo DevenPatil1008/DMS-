@@ -1,8 +1,0 @@
-CREATE VIEW v_student_fingerprints AS
-SELECT s.studid,
-       CONCAT(fname,' ',mname,' ',lname) AS student_name,
-       COUNT(tmstudid) AS total_fingers
-FROM Student s
-LEFT JOIN ThumbMasterStudent t 
-ON s.studid = t.fkstudid
-GROUP BY s.studid;
