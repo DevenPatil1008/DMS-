@@ -1,0 +1,35 @@
+DELIMITER $$
+
+CREATE PROCEDURE upsert_student(
+    IN p_roll_no INT,
+    IN p_student_name VARCHAR(60),
+    IN p_sub1 INT,
+    IN p_sub2 INT,
+    IN p_total INT,
+    IN p_percentage DECIMAL(10,2)
+)
+BEGIN
+    -- Check if record exists
+    IF EXISTS (SELECT 1 FROM Student WHERE roll_no = p_roll_no) THEN
+    
+        -- Update record
+        UPDATE Student
+        SET 
+            student_name = p_student_name,
+            sub1 = p_sub1,
+            sub2 = p_sub2,
+            total = p_total,
+            percentage = p_percentage
+        WHERE roll_no = p_roll_no;
+
+    ELSE
+    
+        -- Insert record
+        INSERT INTO Student (roll_no, student_name, sub1, sub2, total, percentage)
+        VALUES (p_roll_no, p_student_name, p_sub1, p_sub2, p_total, p_percentage);
+
+    END IF;
+
+END$$
+
+DELIMITER ;
