@@ -1,0 +1,81 @@
+CREATE TABLE Student(
+	Roll_no INT PRIMARY KEY,
+    Student_name VARCHAR(60) NOT NULL,
+    Sub1 INT DEFAULT 40,
+    Sub2 INT NULL,
+    Total INT NULL,
+    Percentage DECIMAL(10,2) NOT NULL
+);
+
+INSERT INTO Student (Roll_no,Student_name,Sub1,Sub2,Total,Percentage) VALUES(01,'Raj',90,85,175,87.50);
+
+INSERT INTO Student (Roll_no,Student_name,Sub1,Sub2,Total,Percentage) VALUES(02,'Nikhil',62,70,132,66.00);
+
+INSERT INTO Student (Roll_no,Student_name,Sub2,Total,Percentage) VALUES(03,'Chetan',85,125,62.5);
+
+INSERT INTO Student (Roll_no,Student_name,Sub2,Total,Percentage) VALUES(04,'Darshan',35,75,37.5);
+
+INSERT INTO Student (Roll_no,Student_name,Sub2,Total,Percentage) VALUES(05,'Vedant',95,135,67.5);
+
+INSERT INTO Student (Roll_no,Student_name,Sub2,Total,Percentage) VALUES(06,'Deven',81,121,60.5);
+
+INSERT INTO Student (Roll_no,Student_name,Sub2,Total,Percentage) VALUES(07,'Amey',65,105,52.5);
+
+SELECT * FROM Student;
+DELIMITER $$
+CREATE PROCEDURE StoreNewStudent
+(
+	IN sp_Roll_No INT, 
+    IN sp_Student_name VARCHAR(90),
+    IN sp_Sub1 INT,
+    IN sp_Sub2 INT,
+    IN sp_Total INT,
+    IN sp_Percentage DECIMAL(10,2)
+)
+BEGIN
+	IF EXISTS (SELECT 1 FROM Student WHERE roll_no = p_roll_no) THEN
+    UPDATE Student
+        SET 
+            student_name = p_student_name,
+            sub1 = p_sub1,
+            sub2 = p_sub2,
+            total = p_total,
+            percentage = p_percentage
+        WHERE roll_no = p_roll_no;
+	ELSE
+	INSERT INTO Student(Roll_no,Student_name,Sub1,Sub2,Total,Percentage)VALUES(sp_Roll_No,sp_Student_name,sp_Sub1,sp_Sub2,sp_Total,sp_Percentage);
+    END IF;
+END;
+
+CALL StoreNewStudent(08,'Akshay',50,70,120,60);
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- Source - https://stackoverflow.com/q
+-- Posted by Hubert Solecki, modified by community. See post 'Timeline' for change history
+-- Retrieved 2025-12-12, License - CC BY-SA 3.0
+
+Create Procedure sp_ADD_USER_EXTRANET_CLIENT_INDEX_PHY
+(
+@ParLngId int output
+)
+as
+Begin
+    SET @ParLngId = (Select top 1 ParLngId from T_Param where ParStrNom = 'Extranet Client')
+    if(@ParLngId = 0)
+        begin
+            Insert Into T_Param values ('PHY', 'Extranet Client', Null, Null, 'T', 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL)
+            SET @ParLngId = @@IDENTITY
+        End
+    Return @ParLngId
+End
