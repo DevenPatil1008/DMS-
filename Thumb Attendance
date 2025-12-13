@@ -1,0 +1,216 @@
+CREATE TABLE Course(
+		Course_id INT PRIMARY KEY,
+        Course_Name VARCHAR(20)
+);
+INSERT INTO Course VALUES(1, 'Computer'),(2, 'Science'),(3, 'Commerce'),(4, 'Arts'),(5, 'IT');
+
+
+CREATE TABLE Batch(
+		Batch_Id INT PRIMARY KEY,
+        Batch_Name VARCHAR(20)
+);
+INSERT INTO Batch VALUES(1, 'Batch A'),(2, 'Batch B'),(3, 'Batch C'),(4, 'Batch D'),(5, 'Batch E');
+
+
+CREATE TABLE Post(
+		Post_Id INT PRIMARY KEY,
+        Post_Name VARCHAR(20)
+);
+INSERT INTO Post VALUES(1, 'Teacher'),(2, 'Clerk'),(3, 'Manager'),(4, 'Admin'),(5, 'Accountant');
+
+
+CREATE TABLE Staff(
+		Staff_Id INT PRIMARY KEY,
+        Join_Date DATE,
+        fkPost_Id INT,
+        F_Name VARCHAR(90),
+        M_Name VARCHAR(90),
+        L_Name VARCHAR(90),
+        DOB DATE,
+        Age INT,
+        Gender VARCHAR(20),
+        Address VARCHAR(90),
+        Contact_No BIGINT,
+        Resume BLOB,
+        Photo BLOB,
+        Sign BLOB,
+        User_Name VARCHAR(20),
+        Password VARCHAR(20),
+        FOREIGN KEY(fkPost_Id) REFERENCES Post(Post_Id)
+);
+INSERT INTO Staff VALUES
+(1, '2024-01-10', 1, 'John', 'A', 'Doe', '1990-05-10', 34, 'Male', 'City A', 9876543210, NULL, NULL, NULL, 'john1', 'pass1'),
+(2, '2024-02-14', 2, 'Sara', 'B', 'Lee', '1992-09-12', 32, 'Female', 'City B', 9876543211, NULL, NULL, NULL, 'sara2', 'pass2'),
+(3, '2024-03-01', 3, 'Mike', 'C', 'Smith', '1988-07-22', 36, 'Male', 'City C', 9876543212, NULL, NULL, NULL, 'mike3', 'pass3'),
+(4, '2024-04-11', 4, 'Anna', 'D', 'Brown', '1995-01-15', 29, 'Female', 'City D', 9876543213, NULL, NULL, NULL, 'anna4', 'pass4'),
+(5, '2024-05-20', 5, 'Bob', 'E', 'Jones', '1987-03-30', 37, 'Male', 'City E', 9876543214, NULL, NULL, NULL, 'bob5', 'pass5');
+
+
+CREATE TABLE Batch_Master(
+		Batch_Master_Id INT PRIMARY KEY,
+        fkStaff_ID INT,
+        fkCourse_Id INT,
+        fkBatch_Id INT,
+        FOREIGN KEY(fkStaff_ID) REFERENCES Staff(Staff_ID),
+        FOREIGN KEY(fkCourse_Id) REFERENCES Course(Course_Id),
+        FOREIGN KEY(fkBatch_Id) REFERENCES Batch(Batch_Id)
+);
+INSERT INTO Batch_Master VALUES(1, 1, 1, 1),(2, 2, 2, 2),(3, 3, 3, 3),(4, 4, 4, 4),(5, 5, 5, 5);
+
+
+CREATE TABLE Student(
+		Stud_Id INT PRIMARY KEY,
+        Admn_Date DATE,
+        F_Name VARCHAR(90),
+        M_Name VARCHAR(90),
+        L_Name VARCHAR(90),
+        DOB DATE,
+        Age INT,
+        Gender VARCHAR(20),
+        Address VARCHAR(90),
+        Contact_No BIGINT,
+        fkCourse INT,
+        fkBatch_Id INT,
+        Photo BLOB,
+        Sign BLOB,
+        User_Name VARCHAR(20),
+        Password VARCHAR(20),
+		FOREIGN KEY(fkCourse) REFERENCES Course(Course_Id),
+        FOREIGN KEY(fkBatch_Id) REFERENCES Batch(Batch_Id)
+);
+INSERT INTO Student VALUES
+(1, '2024-06-01', 'Alan', 'T', 'Khan', '2005-04-12', 19, 'Male', 'Area A', 9871110001, 1, 1, NULL, NULL, 'alan1', 'stud1'),
+(2, '2024-06-05', 'Bella', 'U', 'Shah', '2006-02-20', 18, 'Female', 'Area B', 9871110002, 2, 2, NULL, NULL, 'bella2', 'stud2'),
+(3, '2024-06-10', 'Chris', 'V', 'Roy', '2004-10-05', 20, 'Male', 'Area C', 9871110003, 3, 3, NULL, NULL, 'chris3', 'stud3'),
+(4, '2024-06-15', 'Daisy', 'W', 'Patel', '2005-12-15', 19, 'Female', 'Area D', 9871110004, 4, 4, NULL, NULL, 'daisy4', 'stud4'),
+(5, '2024-06-20', 'Evan', 'X', 'Mishra', '2004-08-18', 20, 'Male', 'Area E', 9871110005, 5, 5, NULL, NULL, 'evan5', 'stud5');
+
+
+CREATE TABLE Thumb_Master_Student(
+		tmStud_Id INT PRIMARY KEY,
+        Date DATE,
+        fkStud_Id int,
+        Thumb_Scan BLOB,
+		FOREIGN KEY(fkStud_Id) REFERENCES Student(Stud_Id)
+);
+INSERT INTO Thumb_Master_Student VALUES(1, '2024-07-01', 1, NULL),(2, '2024-07-02', 2, NULL),(3, '2024-07-03', 3, NULL),(4, '2024-07-04', 4, NULL),(5, '2024-07-05', 5, NULL);
+
+
+CREATE TABLE Thumb_Master_Staff(
+		tmStaff_Id INT PRIMARY KEY,
+        Date DATE,
+        fkStaff_Id int,
+        Thumb_Scan BLOB,
+		FOREIGN KEY(fkStaff_Id) REFERENCES Staff(Staff_Id)
+);
+INSERT INTO Thumb_Master_Staff VALUES(1, '2024-07-01', 1, NULL),(2, '2024-07-02', 2, NULL),(3, '2024-07-03', 3, NULL),(4, '2024-07-04', 4, NULL),(5, '2024-07-05', 5, NULL);
+
+
+CREATE TABLE Attendance_Student(
+		attStud_Id INT PRIMARY KEY,
+        Date DATE,
+        Time TIME,
+        fkStud_Id INT,
+  		FOREIGN KEY(fkStud_Id) REFERENCES Student(Stud_Id)
+);
+INSERT INTO Attendance_Student VALUES(1, '2024-08-01', '09:00:00', 1),(2, '2024-08-01', '09:05:00', 2),(3, '2024-08-01', '09:10:00', 3),(4, '2024-08-01', '09:15:00', 4),(5, '2024-08-01', '09:20:00', 5);
+
+
+CREATE TABLE Attendance_Staff(
+		attStaff_Id INT PRIMARY KEY,
+        Date DATE,
+        Time TIME,
+        fkStaff_Id INT,
+  		FOREIGN KEY(fkStaff_Id) REFERENCES Staff(Staff_Id)
+);
+INSERT INTO Attendance_Staff VALUES(1, '2024-08-01', '08:50:00', 1),(2, '2024-08-01', '08:55:00', 2),(3, '2024-08-01', '09:00:00', 3),(4, '2024-08-01', '09:05:00', 4),(5, '2024-08-01', '09:10:00', 5);
+
+
+
+
+
+
+CREATE VIEW V_Course AS 
+SELECT Course_Id,Course_Name FROM Course;
+
+SELECT * FROM V_Course;
+
+CREATE VIEW V_Batch AS 
+SELECT Batch_Id,Batch_Name FROM Batch;
+
+SELECT * FROM V_Batch;
+
+CREATE VIEW V_Post AS 
+SELECT Post_Id,Post_Name FROM Post;
+
+SELECT * FROM V_Post;
+
+CREATE VIEW V_Staff AS
+SELECT Staff_Id,Join_Date,Post_Name,F_Name,M_Name,L_Name,CONCAT(F_Name,'',M_Name,'',L_Name) AS Full_Name,DOB,Age,Gender,Address,Contact_No,Resume,Photo,Sign,User_Name,Password
+FROM Staff
+JOIN Post ON Staff.fkPost_Id=Post.Post_Id;
+
+SELECT * FROM V_Staff;
+
+CREATE VIEW V_Batch_Master AS
+SELECT Batch_Master_Id,CONCAT(F_Name,'',M_Name,'',L_Name) AS Staff_Name,Course_Name,Batch_Name
+FROM Batch_Master
+JOIN Staff ON Batch_Master.fkStaff_Id=Staff.Staff_Id
+JOIN Course ON Batch_Master.fkCourse_Id=Course.Course_Id
+JOIN Batch ON Batch_Master.fkBatch_Id=Batch.Batch_Id;
+
+SELECT * FROM V_Batch_Master;
+
+
+CREATE VIEW v_student AS
+SELECT studid, admn_date, fname, mname, lname,
+CONCAT(fname,' ',mname,' ',lname) AS fullname,
+dob, age, gender, address, contactno,
+coursename, batchname, photo, sign, username, password
+FROM Student
+JOIN Course ON Student.fkcourse = Course.courseid
+JOIN Batch  ON Student.fkbatchid = Batch.batchid;
+
+SELECT * FROM v_student;
+
+
+CREATE VIEW v_student_fingerprints AS
+SELECT s.studid,
+CONCAT(fname,' ',mname,' ',lname) AS student_name,
+COUNT(tmstudid) AS total_fingers
+FROM Student s
+LEFT JOIN ThumbMasterStudent t 
+ON s.studid = t.fkstudid
+GROUP BY s.studid;
+
+SELECT * FROM v_student_fingerprints;
+
+
+CREATE VIEW v_staff_fingerprints AS
+SELECT st.staffid,
+CONCAT(fname,' ',mname,' ',lname) AS staff_name,
+COUNT(tmstaffid) AS total_fingers
+FROM Staff st
+LEFT JOIN ThumbMasterStaff t
+ON st.staffid = t.fkstaffid
+GROUP BY st.staffid;
+
+SELECT * FROM v_staff_fingerprints;
+
+
+CREATE VIEW v_attendance_student AS
+SELECT attstudid, date, time,
+CONCAT(fname,' ',mname,' ',lname) AS student_name
+FROM AttendanceStudent
+JOIN Student ON AttendanceStudent.fkstudid = Student.studid;
+
+SELECT * FROM v_attendance_student;
+
+
+CREATE VIEW v_attendance_staff AS
+SELECT attstaffid, date, time,
+CONCAT(fname,' ',mname,' ',lname) AS staff_name
+FROM AttendanceStaff
+JOIN Staff ON AttendanceStaff.fkstaffid = Staff.staffid;
+
+SELECT * FROM v_attendance_staff;
