@@ -33,24 +33,21 @@ CREATE PROCEDURE StoreNewStudent
     IN sp_Percentage DECIMAL(10,2)
 )
 BEGIN
-	IF EXISTS (SELECT 1 FROM Student WHERE roll_no = p_roll_no) THEN
+	IF EXISTS (SELECT 1 FROM Student WHERE roll_no = sp_Roll_No) THEN
     UPDATE Student
         SET 
-            student_name = p_student_name,
-            sub1 = p_sub1,
-            sub2 = p_sub2,
-            total = p_total,
-            percentage = p_percentage
-        WHERE roll_no = p_roll_no;
+            student_name = sp_Student_name,
+            sub1 = sp_Sub1,
+            sub2 = sp_Sub2,
+            total = sp_Total,
+            percentage = sp_Percentage
+        WHERE roll_no = sp_Roll_No;
 	ELSE
 	INSERT INTO Student(Roll_no,Student_name,Sub1,Sub2,Total,Percentage)VALUES(sp_Roll_No,sp_Student_name,sp_Sub1,sp_Sub2,sp_Total,sp_Percentage);
     END IF;
 END;
 
-CALL StoreNewStudent(08,'Akshay',50,70,120,60);
-
-
-
+CALL StoreNewStudent(07,'Akshay',50,70,120,60);
 
 
 
